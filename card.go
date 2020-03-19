@@ -14,6 +14,9 @@ const (
   Joker
 )
 
+// Create array of suits (small number of items)
+var suits = [...]Suit{Club, Spade, Heart, Diamond}
+
 // Ranks correspond to card's value (2, 7, King, etc)
 type Rank uint8
 const (
@@ -33,6 +36,11 @@ const (
   King
 )
 
+const (
+  minRank = Ace
+  maxRank = King
+)
+
 
 type Card struct {
   Suit
@@ -45,4 +53,14 @@ func (c Card) String() string {
     return c.Suit.String()
   }
   return fmt.Sprintf("%s of %ss", c.Rank.String(), c.Suit.String())
+}
+
+func New() []Card {
+  var cards []Card
+  for _, suit := range suits {
+    for rank := minRank; rank <= maxRank; rank++ {
+      cards = append(cards, Card{ Suit: suit, Rank: rank})
+    }
+  }
+  return cards
 }

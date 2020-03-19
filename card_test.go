@@ -1,6 +1,9 @@
 package deck
 
-import "fmt"
+import (
+  "fmt"
+  "testing"
+  )
 
 func ExampleCard() {
   fmt.Println(Card{Rank:King, Suit:Spade})
@@ -18,4 +21,11 @@ func ExampleCard() {
   // Four of Spades
   // King of Clubs
   // Joker
+}
+
+func TestNewDeck(t *testing.T) {
+  cards := New()
+  if len(cards) != 52  { // Full deck of cards
+      t.Error("Incorrect number of cards in new deck")
+    }
 }
