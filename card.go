@@ -5,6 +5,7 @@ package deck
 import (
   "fmt"
   "sort"
+  "rand"
 )
 
 // Suit corresponds to clubs, spades, hearts, diamonds, and jokers
@@ -96,4 +97,15 @@ func Less(cards []Card) func(i, j int) bool {
 // absoluteRank assigns absolute int for each card
 func absoluteRank(c Card) int {
   return int(c.Suit) * int(maxRank) + int(c.Rank)
+}
+
+// Shuffle assigns random order to deck
+func Shuffle(cards []Cards) []Cards {
+  output := make([]Card, len(cards))
+  r := rand.New(rand.NewSource(time.Now().Unix())) // Random source for rand package
+  permutation := r.Perm(len(cards))
+  for i, j := range permutation {
+    output[i] = cards[j]
+  }
+  return output
 }
