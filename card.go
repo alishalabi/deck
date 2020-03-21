@@ -136,3 +136,14 @@ func Filter(f func(card Card) bool) func([]Card) []Card {
     return output
   }
 }
+
+// Deck allows us to add multiple filtered decks to our new deck
+func Deck(n int) func([]Card) []Card {
+  return func(cards []Card) []Card {
+    var output []Card
+    for i := 0; i < n; i++ {
+      output = append(output, cards...)
+    }
+    return output
+  }
+}
