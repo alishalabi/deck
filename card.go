@@ -123,3 +123,16 @@ func Jokers(n int) func([]Card) []Card {
     return cards
   }
 }
+
+// Filter removed designated cards from a deck
+func Filter(f func(card Card) bool) func([]Card) []Card {
+  return func(cards []Card) []Card {
+    var output []Card
+    for _, c := range cards {
+      if !f(c) { // If card is not in forbidden slice, append
+        output = append(output, c)
+      }
+    }
+    return output
+  }
+}
