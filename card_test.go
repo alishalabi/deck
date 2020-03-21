@@ -37,3 +37,11 @@ func TestDefaultSort(t *testing.T) {
     t.Error("Cards not default sorted, expected Ace of Clubs as first card")
   }
 }
+
+func TestSort(t *testing.T) {
+  cards := New(Sort(Less))
+  expected := Card{Rank: Ace, Suit: Club}
+  if cards[0] != expected {
+    t.Error("Cards not default sorted, expected Ace of Clubs as first card")
+  }
+}

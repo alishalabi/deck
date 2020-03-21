@@ -79,7 +79,15 @@ func DefaultSort(cards []Card) []Card{
   return cards
 }
 
-// Less is a helper method for sorting options
+// Sort is a sorting option for custom sorting options
+func Sort(less func(cards []Card) func(i, j int) bool) func([]Card) []Card {
+  return func(cards []Card) []Card {
+    sort.Slice(cards, less(cards))
+    return cards
+  }
+}
+
+// Less is a helper method for default sorting options
 func Less(cards []Card) func(i, j int) bool {
   return func(i, j int) bool {
     return absoluteRank(cards[i]) < absoluteRank(cards[j])
