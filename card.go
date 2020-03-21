@@ -2,7 +2,10 @@
 
 package deck
 
-import "fmt"
+import (
+  "fmt"
+  "sort"
+)
 
 // Suit corresponds to clubs, spades, hearts, diamonds, and jokers
 type Suit uint8
@@ -47,7 +50,7 @@ type Card struct {
   Rank
 }
 
-// Return a string corresponding to card (Ex: King of Spades)
+// String return a string corresponding to card (Ex: King of Spades)
 func (c Card) String() string {
   if c.Suit == Joker {
     return c.Suit.String()
@@ -55,12 +58,34 @@ func (c Card) String() string {
   return fmt.Sprintf("%s of %ss", c.Rank.String(), c.Suit.String())
 }
 
-func New() []Card {
+// New creates a new deck, allow options
+func New(options ...func([]Card) []Card) []Card {
   var cards []Card
   for _, suit := range suits {
     for rank := minRank; rank <= maxRank; rank++ {
       cards = append(cards, Card{ Suit: suit, Rank: rank})
     }
   }
+  // Add each option
+  for _, option := range options {
+    cards = option(cards)
+  }
   return cards
+}
+
+// DefaultSort is a sorting option that can be passed into the New function
+func DefaultSort(cards []Card) []Card{
+  sort.Slice(cards, Less(cards))
+  return cards
+}
+
+// Less is a helper method for sorting options
+func Less(cards []Card) func(i, j int) bool {
+  return func(i, j int) bool {
+    return absoluteRank(cards[i]) < absoluteRank(cards[j])
+  }
+}
+// absoluteRank assigns absolute int for each card
+func absoluteRank(c Card) int {
+  return int(c.Suit) * int(maxRank) + int(c.Rank)
 }

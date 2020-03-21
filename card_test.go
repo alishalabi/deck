@@ -29,3 +29,11 @@ func TestNewDeck(t *testing.T) {
       t.Error("Incorrect number of cards in new deck")
     }
 }
+
+func TestDefaultSort(t *testing.T) {
+  cards := New(DefaultSort)
+  expected := Card{Rank: Ace, Suit: Club}
+  if cards[0] != expected {
+    t.Error("Cards not default sorted, expected Ace of Clubs as first card")
+  }
+}
