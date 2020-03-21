@@ -1,7 +1,11 @@
-Packages used: Stringer
-- Generates usable strings of our suit/ranks
+# Deck Of Playing Card
+The purpose of this project is to create a reusable API to generate a deck of playing cards. This deck can easily be utilized in any card game projects (Poker, Go Fish, Blackjack).
 
-# Public methods
+## Usage
+- Package can be imported into any Golang project by using `go get https://github.com/alishalabi/deck`
+- Package can be cloned locally using `git clone https://github.com/alishalabi/deck.git`
+
+## Public methods
 - `New(options ...func([]Card) []Card) []Card`
   - Creates a new deck, pass in any number of options
 - `DefaultSort(cards []Card) []Card`
@@ -17,7 +21,7 @@ Packages used: Stringer
 - `Deck(n int) func([]Card) []Card`
   - Add multiple decks
 
-# Iterations
+## Iterations
 - [x] Create standard deck struct
 - [x] Create method to generate standard deck
 - [x] Create method to sort deck
