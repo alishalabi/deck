@@ -5,7 +5,8 @@ package deck
 import (
   "fmt"
   "sort"
-  "rand"
+  "math/rand"
+  "time"
 )
 
 // Suit corresponds to clubs, spades, hearts, diamonds, and jokers
@@ -100,7 +101,7 @@ func absoluteRank(c Card) int {
 }
 
 // Shuffle assigns random order to deck
-func Shuffle(cards []Cards) []Cards {
+func Shuffle(cards []Card) []Card {
   output := make([]Card, len(cards))
   r := rand.New(rand.NewSource(time.Now().Unix())) // Random source for rand package
   permutation := r.Perm(len(cards))
@@ -108,4 +109,17 @@ func Shuffle(cards []Cards) []Cards {
     output[i] = cards[j]
   }
   return output
+}
+
+// Jokers add a given number of jokers to a new deck
+func Jokers(n int) func([]Card) []Card {
+  return func(cards []Card) []Card {
+    for i := 0; i < n; i++ {
+      cards = append(cards, Card{
+        Rank: Rank(i), // Gives us a differentiated value to each Joker
+        Suit: Joker,
+      })
+    }
+    return cards
+  }
 }
